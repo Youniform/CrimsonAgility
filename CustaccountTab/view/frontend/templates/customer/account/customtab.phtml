@@ -5,7 +5,7 @@
     <label>Highest Price</label><br/>
     <input type="text" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off"><br/>
     <label>Sort by Price</label><br/>
-    <select name="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off">
+    <select name="sortorder" id="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off">
         <option name="ascending" value="ascending">Ascending</option>
         <option name="descending" value="descending">Descending</option>
     </select>
@@ -24,14 +24,16 @@ require(['jquery'],function(){
         jQuery(".result").hide();
         jQuery("#form_value").submit(function(){
             
-            var oneValue = jQuery("input[name='numone']").val();
-            var twoValue = jQuery("input[name='numtwo']").val();
+            var lowPrice = jQuery("input[name='lowprice']").val();
+            var highPrice = jQuery("input[name='highprice']").val();
+            //var sortOrder = jQuery("#sortorder").children("option:selected").val();
+            var sortOrder = "up";
 
-            var url = "<?php echo $block->getBaseUrl().'ajaxtutorial/result/result/' ?>";
+            var url = "<?php echo $block->getBaseUrl().'custaccounttab/result/result/' ?>";
             jQuery.ajax({
             url: url,
             type: "POST",
-            data: {numone:oneValue,numtwo:twoValue},
+            data: {lowprice:lowPrice,highprice:highPrice,sortorder:sortOrder},
             showLoader: true,
             cache: false,
             success: function(response){
