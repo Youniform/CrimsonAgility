@@ -1,11 +1,11 @@
 
-<form name="form_value" method="POST" id="form_value">
+<form name="form_value" method="POST" id="form_value" data-mage-init='{"validation": {}}'>
     <label>Lowest Price</label><br/>
-    <input type="text" name="lowprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off"><br/>
+    <input type="text" name="lowprice" class="form-control input-md" data-validate="{'validate-zero-or-greater':true}" style="margin:20px;width:300px;" autocomplete="off"><br/>
     <label>Highest Price</label><br/>
-    <input type="text" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off"><br/>
+    <input type="text" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-zero-or-greater':true}"><br/>
     <label>Sort by Price</label><br/>
-    <select name="sortorder" id="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off">
+    <select name="sortorder" id="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-select':true}">
         <option name="ascending" value="ascending">Ascending</option>
         <option name="descending" value="descending">Descending</option>
     </select>
@@ -21,9 +21,10 @@ Result<div class="result" style="display:none">
 
 
 <script>
-require(['jquery'],function(){
+require(['jquery','mage/mage'],function(){
     jQuery(document).ready(function() {
         jQuery(".result").hide();
+        jQuery("#form_value").mage('validation', {});
         jQuery("#form_value").submit(function(){
             
             var lowPrice = jQuery("input[name='lowprice']").val();
@@ -47,4 +48,11 @@ require(['jquery'],function(){
         });
     });
 });
+</script>
+<script type="text/x-magento-init">
+{
+    "#form_value": {
+        "validation": {}
+    }
+}
 </script>
