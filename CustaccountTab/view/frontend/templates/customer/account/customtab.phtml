@@ -1,0 +1,47 @@
+
+<form name="form_value" method="POST" id="form_value">
+    <label>Lowest Price</label><br/>
+    <input type="text" name="lowprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off"><br/>
+    <label>Highest Price</label><br/>
+    <input type="text" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off"><br/>
+    <label>Sort by Price</label><br/>
+    <select name="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off">
+        <option name="ascending" value="ascending">Ascending</option>
+        <option name="descending" value="descending">Descending</option>
+    </select>
+    <br/>
+
+    <input type="submit" id="queryProducts"  name="query-products-submit" value="Query Products">
+</form>
+<br/>
+<br/>
+Result<div class="result" style="display:none"></div>
+
+
+<script>
+require(['jquery'],function(){
+    jQuery(document).ready(function() {
+        jQuery(".result").hide();
+        jQuery("#form_value").submit(function(){
+            
+            var oneValue = jQuery("input[name='numone']").val();
+            var twoValue = jQuery("input[name='numtwo']").val();
+
+            var url = "<?php echo $block->getBaseUrl().'ajaxtutorial/result/result/' ?>";
+            jQuery.ajax({
+            url: url,
+            type: "POST",
+            data: {numone:oneValue,numtwo:twoValue},
+            showLoader: true,
+            cache: false,
+            success: function(response){
+                console.log(response.output);
+                jQuery(".result").show();
+                jQuery(".result").text(response.output);
+            }
+        });
+        return false;
+        });
+    });
+});
+</script>
