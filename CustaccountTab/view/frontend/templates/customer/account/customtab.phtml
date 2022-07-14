@@ -28,8 +28,7 @@ require(['jquery'],function(){
             
             var lowPrice = jQuery("input[name='lowprice']").val();
             var highPrice = jQuery("input[name='highprice']").val();
-            //var sortOrder = jQuery("#sortorder").children("option:selected").val();
-            var sortOrder = "up";
+            var sortOrder = jQuery("#sortorder").children("option:selected").val();
 
             var url = "<?php echo $block->getBaseUrl().'custaccounttab/result/result/' ?>";
             jQuery.ajax({
