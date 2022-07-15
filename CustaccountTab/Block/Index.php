@@ -7,13 +7,25 @@ use \Magento\Framework\View\Element\Template\Context;
 
 class Index extends Template
 {
+    protected $_productCollectionFactory;
 
     public function __construct(Context $context,      
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        array $data = []
     )
     {        
         $this->_storeManager = $storeManager;
+        $this->_productCollectionFactory = $productCollectionFactory; 
         parent::__construct($context);
+    }
+
+    public function getProductCollection()
+    {
+        $collection = $this->_productCollectionFactory->create();
+        $collection->addAttributeToSelect('*');
+        $collection->setPageSize(3); // fetching only 3 products
+        return $collection;
     }
 
     public function getBaseUrl()

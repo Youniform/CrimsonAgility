@@ -4,3 +4,9 @@ $lowprice = $block->getLowPriceData();
 $highprice = $block->getHighPriceData();
 
 echo "Hello, this is the results area";
+
+$productCollection = $block->getProductCollection();
+foreach ($productCollection as $product) {
+    print_r($product->getData());     
+    echo "<br>";
+}
