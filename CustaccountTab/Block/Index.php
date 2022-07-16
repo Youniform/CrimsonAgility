@@ -20,11 +20,12 @@ class Index extends Template
         parent::__construct($context);
     }
 
-    public function getProductCollection()
+    public function getProductCollection($lowprice, $highprice)
     {
         $collection = $this->_productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        $collection->setPageSize(3); // fetching only 3 products
+        $collection->addFieldToFilter( 'price' , array('from' => $lowprice, 'to' => $highprice) );
+        $collection->setPageSize(10); // fetching 10 producs
         return $collection;
     }
 

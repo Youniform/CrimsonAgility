@@ -41,7 +41,7 @@ require(['jquery','mage/mage'],function(){
             success: function(response){
                 console.log(response.output);
                 jQuery(".result").show();
-                jQuery(".result").text(response.output);
+                jQuery(".result").html(response.output);
             }
         });
         return false;

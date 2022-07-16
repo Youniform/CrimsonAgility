@@ -3,10 +3,44 @@
 $lowprice = $block->getLowPriceData();
 $highprice = $block->getHighPriceData();
 
-echo "Hello, this is the results area";
 
-$productCollection = $block->getProductCollection();
-foreach ($productCollection as $product) {
-    print_r($product->getData());     
-    echo "<br>";
-}
+
+$productCollection = $block->getProductCollection($lowprice, $highprice);
+?>
+<table>
+	<thead>
+		<tr>
+			<th colspan="6">Custom Product Collection</th>
+		</tr>
+		<tr>
+			<td>Thumbnail</td>
+			<td>SKU</td>
+			<td>Name</td>
+			<td>QTY</td>
+			<td>Price</td>
+			<td>Link</td>
+		</tr>
+	</thead>
+	<?php foreach ($productCollection as $product):?>
+		<tr>
+			<td>
+				<img src="<?php echo $block->getBaseUrl()."pub/media/catalog/".$product->getThumbnail();?>"/>
+			</td>
+			<td>
+				<?php echo $product->getSku();?>
+			</td>
+			<td>
+				<?php echo $product->getName();?>
+			</td>
+			<td>
+				QTY placeholder
+			</td>
+			<td>
+				<?php echo $product->getPrice();?>
+			</td>
+			<td>
+				<a href="<?php echo $product->getProductUrl();?>">Link</a>
+			</td>
+		</tr>
+		<?php endforeach;?>	
+</table>
