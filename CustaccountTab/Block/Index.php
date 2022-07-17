@@ -20,11 +20,12 @@ class Index extends Template
         parent::__construct($context);
     }
 
-    public function getProductCollection($lowprice, $highprice)
+    public function getProductCollection($lowprice, $highprice, $sort)
     {
         $collection = $this->_productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
         $collection->addFieldToFilter( 'price' , array('from' => $lowprice, 'to' => $highprice) );
+        $collection->addAttributeToSort('price', $sort);
         $collection->setPageSize(10); // fetching 10 producs
         return $collection;
     }
@@ -32,6 +33,11 @@ class Index extends Template
     public function getBaseUrl()
     {
         return $this->_storeManager->getStore()->getBaseUrl();
+    }
+
+    public function getSortData()
+    {
+        return $this->getSort();
     }
 
     public function getLowPriceData()

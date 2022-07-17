@@ -47,6 +47,7 @@ class Result extends \Magento\Framework\App\Action\Action
                 ->setTemplate('CrimsonAgility_CustaccountTab::result.phtml')
                 ->setData('lowprice',$lowprice)
                 ->setData('highprice',$highprice)
+                ->setData('sort', $sort)
                 ->toHtml();
         
 
