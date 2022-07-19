@@ -8,16 +8,25 @@ use \Magento\Framework\View\Element\Template\Context;
 class Index extends Template
 {
     protected $_productCollectionFactory;
+    protected $_stockItemRepository;
+
 
     public function __construct(Context $context,      
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
         array $data = []
     )
     {        
         $this->_storeManager = $storeManager;
         $this->_productCollectionFactory = $productCollectionFactory; 
-        parent::__construct($context);
+        $this->_stockItemRepository = $stockItemRepository;
+        parent::__construct($context, $data);
+    }
+
+    public function getStockItem($productId)
+    {
+        return $this->_stockItemRepository->get($productId);
     }
 
     public function getProductCollection($lowprice, $highprice, $sort)

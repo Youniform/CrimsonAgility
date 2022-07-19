@@ -20,9 +20,15 @@ $productCollection = $block->getProductCollection($lowprice, $highprice, $sort);
 			<td>QTY</td>
 			<td>Price</td>
 			<td>Link</td>
+			<td>ID</td>
 		</tr>
 	</thead>
 	<?php foreach ($productCollection as $product):?>
+	<?php
+		$id = $product->getEntityId();
+		$_productStock = $block->getStockItem($id);
+		$qty = $_productStock->getQty();
+	?>
 		<tr>
 			<td>
 				<img src="<?php echo $block->getBaseUrl()."pub/media/catalog/".$product->getThumbnail();?>"/>
@@ -34,13 +40,16 @@ $productCollection = $block->getProductCollection($lowprice, $highprice, $sort);
 				<?php echo $product->getName();?>
 			</td>
 			<td>
-				QTY placeholder
+				<?php echo $qty;?>
 			</td>
 			<td>
 				<?php echo $product->getPrice();?>
 			</td>
 			<td>
 				<a href="<?php echo $product->getProductUrl();?>">Link</a>
+			</td>
+			<td>
+				<?php echo $product->getEntityId();?>
 			</td>
 		</tr>
 		<?php endforeach;?>	
