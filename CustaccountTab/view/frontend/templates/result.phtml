@@ -43,7 +43,7 @@ $productCollection = $block->getProductCollection($lowprice, $highprice, $sort);
 				<?php echo $qty;?>
 			</td>
 			<td>
-				<?php echo $product->getPrice();?>
+				<?php echo number_format($product->getPrice(), 2,".",",");?>
 			</td>
 			<td>
 				<a href="<?php echo $product->getProductUrl();?>">Link</a>
