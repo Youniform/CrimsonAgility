@@ -3,9 +3,6 @@
 $lowprice = $block->getLowPriceData();
 $highprice = $block->getHighPriceData();
 $sort = $block->getSortData();
-
-
-
 $productCollection = $block->getProductCollection($lowprice, $highprice, $sort);
 ?>
 <table>
@@ -31,7 +28,7 @@ $productCollection = $block->getProductCollection($lowprice, $highprice, $sort);
 	?>
 		<tr>
 			<td>
-				<img src="<?php echo $block->getBaseUrl()."pub/media/catalog/".$product->getThumbnail();?>"/>
+				<img src="<?php echo $block->getBaseUrl()."pub/media/catalog/product".$product->getThumbnail();?>"/>
 			</td>
 			<td>
 				<?php echo $product->getSku();?>
