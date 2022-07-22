@@ -1,11 +1,11 @@
 
-<form name="form_value" method="POST" id="form_value" data-mage-init='{"validation": {}}'>
+<form name="form_value" method="POST" id="form_value" data-mage-init='{"validation": {},"validation-mix":{}}'>
     <label>Lowest Price</label><br/>
-    <input type="text" name="lowprice" class="form-control input-md" data-validate="{'validate-zero-or-greater':true}" style="margin:20px;width:300px;" autocomplete="off"><br/>
+    <input type="text" name="lowprice" class="form-control input-md" data-validate="{'validate-zero-or-greater':true, required: true}" style="margin:20px;width:300px;" autocomplete="off"><br/>
     <label>Highest Price</label><br/>
-    <input type="text" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-zero-or-greater':true}"><br/>
+    <input type="text" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-zero-or-greater':true, required:true}"><br/>
     <label>Sort by Price</label><br/>
-    <select name="sortorder" id="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-select':true}">
+    <select name="sortorder" id="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-select':true, required:true}">
         <option name="ascending" value="ASC">Ascending</option>
         <option name="descending" value="DESC">Descending</option>
     </select>
