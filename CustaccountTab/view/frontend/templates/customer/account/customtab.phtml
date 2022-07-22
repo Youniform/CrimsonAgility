@@ -1,17 +1,15 @@
 
-<form name="form_value" method="POST" id="form_value" data-mage-init='{"validation": {},"validation-mix":{}}'>
+<form name="form_value" method="POST" id="form_value">
     <label>Lowest Price</label><br/>
-    <input type="text" name="lowprice" class="form-control input-md" data-validate="{'validate-zero-or-greater':true, required: true}" style="margin:20px;width:300px;" autocomplete="off"><br/>
+    <input type="text" id="lowprice" name="lowprice" class="form-control input-md" data-validate="{'validate-zero-or-greater':true, required: true}" style="margin:20px;width:300px;" autocomplete="off"><br/>
     <label>Highest Price</label><br/>
-    <input type="text" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-zero-or-greater':true, required:true}"><br/>
+    <input type="text" id="highprice" name="highprice" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-zero-or-greater':true, 'validate-range':true, required:true}"><br/>
     <label>Sort by Price</label><br/>
     <select name="sortorder" id="sortorder" class="form-control input-md" style="margin:20px;width:300px;" autocomplete="off" data-validate="{'validate-select':true, required:true}">
         <option name="ascending" value="ASC">Ascending</option>
         <option name="descending" value="DESC">Descending</option>
     </select>
     <br/>
-    <label>Validate Test</label>
-    <input type="text" name="test" data-validate="{'validate-five-words':true, required: true }"/>
     <br>
 
     <input type="submit" id="queryProducts"  name="query-products-submit" value="Query Products">
@@ -25,7 +23,6 @@ Result<div class="result" style="display:none">
 <script type="text/x-magento-init">
 {
     "#form_value": {
-        "validation-mixin": {},
         "validation": {}
     }
 }
@@ -34,7 +31,37 @@ Result<div class="result" style="display:none">
 require(['jquery','mage/mage'],function(){
     jQuery(document).ready(function() {
         jQuery(".result").hide();
-        jQuery("#form_value").mage('validation', {});
+        var lowPriceEl = jQuery("#lowprice");
+        var highPriceEl = jQuery("#highprice");
+        jQuery(lowPriceEl).on("change", function(){
+            console.log("change event happened");
+            var lowPriceVal = jQuery(lowPriceEl).val();
+            if (lowPriceVal === "0") {
+                // add 5 to it to make high price limit
+                var highPriceLimit = 5;
+                console.log("lowPriceEl is equal to 0 so highPriceLimit : " + highPriceLimit);
+                // remove previous range string class
+                jQuery(highPriceEl).removeClass();
+                // build class range string 
+                var rangeString = "range-"+lowPriceVal+"-"+highPriceLimit;
+                console.log(rangeString);
+                // add class attribute with new string to highPrice input element
+                jQuery(highPriceEl).addClass([rangeString,"form-control", "input-md"]);
+
+            }
+            else if (lowPriceVal > 0) {
+                var highPriceLimit = lowPriceVal * 5;
+                console.log(highPriceLimit);
+                // remove previous range string class
+                jQuery(highPriceEl).removeClass();
+                // build class range string
+                var rangeString = "range-"+lowPriceVal+"-"+highPriceLimit;
+                console.log(rangeString);
+                // add class attribute to highPrice input element
+                jQuery(highPriceEl).addClass([rangeString,"form-control", "input-md"]);
+            }
+        });
+        jQuery("#form_value").mage('validation');
         jQuery("#form_value").submit(function(){
             
             var lowPrice = jQuery("input[name='lowprice']").val();
