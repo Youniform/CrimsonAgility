@@ -10,6 +10,9 @@
         <option name="descending" value="DESC">Descending</option>
     </select>
     <br/>
+    <label>Validate Test</label>
+    <input type="text" name="test" data-validate="{'validate-five-words':true, required: true }"/>
+    <br>
 
     <input type="submit" id="queryProducts"  name="query-products-submit" value="Query Products">
 </form>
@@ -19,7 +22,14 @@ Result<div class="result" style="display:none">
     <h1 style="text-align:center;">If this is showing that means the jQuery script worked</h1>
 </div>
 
-
+<script type="text/x-magento-init">
+{
+    "#form_value": {
+        "validation-mixin": {},
+        "validation": {}
+    }
+}
+</script>
 <script>
 require(['jquery','mage/mage'],function(){
     jQuery(document).ready(function() {
@@ -48,11 +58,4 @@ require(['jquery','mage/mage'],function(){
         });
     });
 });
-</script>
-<script type="text/x-magento-init">
-{
-    "#form_value": {
-        "validation": {}
-    }
-}
 </script>
