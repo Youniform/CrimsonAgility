@@ -12,13 +12,11 @@
     <br/>
     <br>
 
-    <input type="submit" id="queryProducts"  name="query-products-submit" value="Query Products">
+    <button type="button" id="queryProducts"  name="query-products-submit" value="Query Products">Query Results</button>
 </form>
 <br/>
 <br/>
-Result<div class="result" style="display:none">
-    <h1 style="text-align:center;">If this is showing that means the jQuery script worked</h1>
-</div>
+<div class="result" style="display:none"></div>
 
 <script type="text/x-magento-init">
 {
@@ -34,36 +32,31 @@ require(['jquery','mage/mage'],function(){
         var lowPriceEl = jQuery("#lowprice");
         var highPriceEl = jQuery("#highprice");
         jQuery(lowPriceEl).on("change", function(){
-            console.log("change event happened");
             var lowPriceVal = jQuery(lowPriceEl).val();
             if (lowPriceVal === "0") {
                 // add 5 to it to make high price limit
                 var highPriceLimit = 5;
-                console.log("lowPriceEl is equal to 0 so highPriceLimit : " + highPriceLimit);
                 // remove previous range string class
                 jQuery(highPriceEl).removeClass();
                 // build class range string 
                 var rangeString = "range-"+lowPriceVal+"-"+highPriceLimit;
-                console.log(rangeString);
                 // add class attribute with new string to highPrice input element
                 jQuery(highPriceEl).addClass([rangeString,"form-control", "input-md"]);
 
             }
             else if (lowPriceVal > 0) {
                 var highPriceLimit = lowPriceVal * 5;
-                console.log(highPriceLimit);
                 // remove previous range string class
                 jQuery(highPriceEl).removeClass();
                 // build class range string
                 var rangeString = "range-"+lowPriceVal+"-"+highPriceLimit;
-                console.log(rangeString);
                 // add class attribute to highPrice input element
                 jQuery(highPriceEl).addClass([rangeString,"form-control", "input-md"]);
             }
         });
-        jQuery("#form_value").mage('validation');
-        jQuery("#form_value").submit(function(){
-            
+        jQuery("#queryProducts").on('click', function(){
+        //jQuery("#form_value").mage('validation');
+        if (jQuery('#form_value').validation('isValid')) {
             var lowPrice = jQuery("input[name='lowprice']").val();
             var highPrice = jQuery("input[name='highprice']").val();
             var sortOrder = jQuery("#sortorder").children("option:selected").val();
@@ -76,12 +69,11 @@ require(['jquery','mage/mage'],function(){
             showLoader: true,
             cache: false,
             success: function(response){
-                console.log(response.output);
                 jQuery(".result").show();
                 jQuery(".result").html(response.output);
             }
-        });
-        return false;
+            });
+        }        
         });
     });
 });

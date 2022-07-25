@@ -5,10 +5,11 @@ $highprice = $block->getHighPriceData();
 $sort = $block->getSortData();
 $productCollection = $block->getProductCollection($lowprice, $highprice, $sort);
 ?>
+<?php if($productCollection->getSize() >= 1):?>
 <table>
 	<thead>
 		<tr>
-			<th colspan="6">Custom Product Collection</th>
+			<th colspan="7">Custom Product Collection</th>
 		</tr>
 		<tr>
 			<td>Thumbnail</td>
@@ -51,3 +52,7 @@ $productCollection = $block->getProductCollection($lowprice, $highprice, $sort);
 		</tr>
 		<?php endforeach;?>	
 </table>
+<?php endif;?>
+<?php if($productCollection->getSize() < 1):?>
+<h4>Sorry but there were no products that matched your search criteria, please try again.</h4>
+<?php endif;?>
